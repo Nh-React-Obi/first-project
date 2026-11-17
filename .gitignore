@@ -46,3 +46,8 @@ next-env.d.ts
 .eslintcache
 .turbo
 .swc
+
+
+.dockerignore
+Dockerfile
+docker-compose.yml
