@@ -1,9 +1,7 @@
+import BottleDetails from "./pages/BottleDetail";
+
 function App() {
-  return (
-    <main>
-      <h1>hello</h1>
-    </main>
-  );
+  return <BottleDetails />;
 }
 
 export default App;
