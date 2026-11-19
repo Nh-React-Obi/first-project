@@ -48,8 +48,7 @@ next-env.d.ts
 .swc
 
 
+/dist
 .dockerignore
 Dockerfile
 docker-compose.yml
-
-/dist
