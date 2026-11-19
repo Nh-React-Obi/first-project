@@ -1,6 +1,6 @@
 import { EventsHome } from "../components/EventsHome";
 import { useOutletContext } from "react-router";
-import type { PagesContext } from "../components/pagesHook";
+import type { PagesContext } from "../hooks/pagesHook";
 const EventsPage = () => {
   const {
     visibleEvents,
