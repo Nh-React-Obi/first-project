@@ -72,7 +72,7 @@ export function EventModal({
             />
           </label>
           <div className={styles["form-row"]}>
-            <label>
+            <label style={{width: '87%'}}>
               Date
               <input
                 required
@@ -81,7 +81,7 @@ export function EventModal({
                 onChange={(event) => setDate(event.target.value)}
               />
             </label>
-            <label>
+            <label style={{width: '87%'}}>
               Time
               <input
                 required
@@ -102,7 +102,7 @@ export function EventModal({
               ))}
             </select>
           </label>
-          <label>
+          <label style={{width: '95%'}}>
             Location
             <input
               required
