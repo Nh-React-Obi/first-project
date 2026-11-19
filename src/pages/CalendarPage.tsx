@@ -1,5 +1,5 @@
 import { useOutletContext } from 'react-router'
-import type { PagesContext } from '../components/pagesHook'
+import type { PagesContext } from '../hooks/pagesHook'
 import { CalendarHome } from '../components/CalendarHome'
 
 const CalendarPage = () => {

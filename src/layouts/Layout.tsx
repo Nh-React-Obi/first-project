@@ -3,7 +3,7 @@ import { NavLink, Outlet } from "react-router";
 import { useState } from "react";
 import styles from "../components/Event.module.css";
 import { EventDetails, EventModal } from "../components/EventModal";
-import { usePages } from "../components/pagesHook";
+import { usePages } from "../hooks/pagesHook";
 
 export function Layout() {
   const [activePage, setActivePage] = useState<string>("calendar");

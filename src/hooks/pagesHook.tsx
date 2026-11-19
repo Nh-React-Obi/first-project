@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import useLocalStorage from "../hooks/LocalStorage";
+import useLocalStorage from "./LocalStorage";
 import { categories, dateFromKey, dateKey } from "../events";
 import type { CalendarEvent, Category, Page } from "../events";
 
