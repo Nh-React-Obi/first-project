@@ -1,8 +1,14 @@
-import { EventsHome } from '../components/EventsHome'
-import { useOutletContext } from 'react-router'
-import type { PagesContext } from '../components/pagesHook'
+import { EventsHome } from "../components/EventsHome";
+import { useOutletContext } from "react-router";
+import type { PagesContext } from "../components/pagesHook";
 const EventsPage = () => {
-  const {visibleEvents, activeCategories, toggleCategory, setShowModal, setSelectedEvent} = useOutletContext<PagesContext>()
+  const {
+    visibleEvents,
+    activeCategories,
+    toggleCategory,
+    setShowModal,
+    setSelectedEvent,
+  } = useOutletContext<PagesContext>();
   return (
     <>
       <EventsHome
@@ -13,7 +19,7 @@ const EventsPage = () => {
         onSelectEvent={setSelectedEvent}
       />
     </>
-  )
-}
+  );
+};
 
-export default EventsPage
+export default EventsPage;
