@@ -6,6 +6,7 @@ import BuildYourOwn from "./pages/BuildYourOwn";
 import EventsPage from "./pages/EventsPage";
 import CalendarPage from "./pages/CalendarPage";
 import { Layout } from "./layouts/Layout";
+import FullOrderPage from "./exports/App";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "events",
         element: <EventsPage />,
+      },
+      {
+        path: "order",
+        element: <FullOrderPage />,
       },
     ],
   },
