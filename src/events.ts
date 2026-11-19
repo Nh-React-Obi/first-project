@@ -30,6 +30,8 @@ export function formatTime(time: string) {
   return `${hour % 12 || 12}:${String(minute).padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`
 }
 
+export type Page = "calendar" | "events";
+
 export function makeInitialEvents(today: Date): CalendarEvent[] {
   const day = (n: number) => dateKey(new Date(today.getFullYear(), today.getMonth(), n))
   return [

@@ -1,33 +1,117 @@
-import type { ReactNode } from 'react'
-import { Icon } from './Icon'
+import { Icon } from "./Icon";
+import { NavLink, Outlet } from "react-router";
+import { useState } from "react";
+import styles from "./Event.module.css";
+import { EventDetails, EventModal } from "./EventModal";
+import { usePages } from "./pagesHook";
 
-export type Page = 'calendar' | 'events'
+export function Layout() {
+  const [activePage, setActivePage] = useState<string>("calendar");
+  const pageState = usePages();
 
-export function Layout({ page, onNavigate, search, onSearch, children }: {
-  page: Page
-  onNavigate: (page: Page) => void
-  search: string
-  onSearch: (value: string) => void
-  children: ReactNode
-}) {
-  return <div className="app-shell">
-    <aside className="sidebar">
-      <div className="brand"><div className="brand-mark">w</div><div><strong>wellspring<span>.</span></strong><small>BOTTLING CO.</small></div></div>
-      <div className="workspace-label">WORKSPACE</div>
-      <nav className="side-nav" aria-label="Workspace">
-        <button className={page === 'calendar' ? 'active' : ''} aria-current={page === 'calendar' ? 'page' : undefined} onClick={() => onNavigate('calendar')}><Icon name="calendar" /> Calendar</button>
-        <button className={page === 'events' ? 'active' : ''} aria-current={page === 'events' ? 'page' : undefined} onClick={() => onNavigate('events')}><Icon name="events" /> Events</button>
-      </nav>
-      <div className="side-note"><Icon name="sparkle" /><div><strong>Better days, bottled.</strong><p>A little planning goes a long way.</p></div></div>
-      <div className="sidebar-bottom"><div className="avatar">JD</div><div><strong>Jordan Davis</strong><small>Operations manager</small></div></div>
-    </aside>
-    <main className="main-content">
-      <header className="topbar"><div className="breadcrumb">Workspace <span>/</span> <strong>{page === 'calendar' ? 'Calendar' : 'Events'}</strong></div><label className="search"><Icon name="search" size={17} /><input placeholder="Search events..." aria-label="Search events" value={search} onChange={(event) => onSearch(event.target.value)} /></label></header>
-      <div className="page-content">{children}<footer className="page-footer"><span>MADE FOR THE WAY YOU WORK</span><span>Wellspring Bottling Co. &nbsp; ✳</span></footer></div>
-    </main>
-  </div>
+  const navItems = [
+    { name: "calendar", label: "Calendar", icon: "calendar", path: "/calendar" },
+    { name: "events", label: "Events", icon: "events", path: "/events" }
+  ]
+  return (
+    <div className={styles["app-shell"]}>
+      <aside className={styles.sidebar}>
+        <div className={styles.brand}>
+          <div className={styles["brand-mark"]}>w</div>
+          <div>
+            <strong>
+              wellspring<span>.</span>
+            </strong>
+            <small>BOTTLING CO.</small>
+          </div>
+        </div>
+        <div className={styles["workspace-label"]}>WORKSPACE</div>
+        <nav className={styles["side-nav"]} aria-label="Workspace">
+          {
+            navItems.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                className={({ isActive }) => (isActive ?`${styles.active} ${styles['side-nav-button']}` : `${styles['side-nav-button']}`)}
+                onClick={() => setActivePage(item.name)}
+              >
+                <Icon name={item.icon} /> {item.label}
+              </NavLink>
+            ))
+          }
+        </nav>
+        <div className={styles["side-note"]}>
+          <Icon name="sparkle" />
+          <div>
+            <strong>Better days, bottled.</strong>
+            <p>A little planning goes a long way.</p>
+          </div>
+        </div>
+        <div className={styles["sidebar-bottom"]}>
+          <div className={styles.avatar}>JD</div>
+          <div>
+            <strong>Jordan Davis</strong>
+            <small>Operations manager</small>
+          </div>
+        </div>
+      </aside>
+      <main className={styles["main-content"]}>
+        <header className={styles.topbar}>
+          <div className={styles.breadcrumb}>
+            Workspace <span>/</span>{" "}
+            <strong>{activePage === "calendar" ? "Calendar" : "Events"}</strong>
+          </div>
+
+        </header>
+        <div className={styles["page-content"]}>
+          <Outlet context={pageState} />
+          <footer className={styles["page-footer"]}>
+            <span>MADE FOR THE WAY YOU WORK</span>
+            <span>Wellspring Bottling Co. &nbsp; ✳</span>
+          </footer>
+        </div>
+      </main>
+      {pageState.showModal && (
+        <EventModal
+          initialDate={pageState.selectedDate}
+          onClose={() => pageState.setShowModal(false)}
+          onSave={pageState.saveEvent}
+        />
+      )}
+      {pageState.selectedEvent && (
+        <EventDetails
+          event={pageState.selectedEvent}
+          onClose={() => pageState.setSelectedEvent(null)}
+        />
+      )}
+    </div>
+  );
 }
 
-export function PageHeading({ title, description, onCreate }: { title: string; description: string; onCreate: () => void }) {
-  return <div className="page-heading"><div><div className="eyebrow"><span className="eyebrow-dot" /> YOUR WORKSPACE</div><h1>{title}<span>.</span></h1><p>{description}</p></div><button className="primary-button" onClick={onCreate}><Icon name="plus" /> Create event</button></div>
+export function PageHeading({
+  title,
+  description,
+  onCreate,
+}: {
+  title: string;
+  description: string;
+  onCreate: () => void;
+}) {
+  return (
+    <div className={styles["page-heading"]}>
+      <div>
+        <div className={styles.eyebrow}>
+          <span className={styles["eyebrow-dot"]} /> YOUR WORKSPACE
+        </div>
+        <h1>
+          {title}
+          <span>.</span>
+        </h1>
+        <p>{description}</p>
+      </div>
+      <button className={styles["primary-button"]} onClick={onCreate}>
+        <Icon name="plus" /> Create event
+      </button>
+    </div>
+  );
 }

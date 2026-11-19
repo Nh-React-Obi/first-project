@@ -1,6 +1,8 @@
 import { categoryColors, dateFromKey, formatTime } from '../events'
 import type { CalendarEvent } from '../events'
 import { Icon } from './Icon'
+import styles from './Event.module.css'
+
 
 interface EventCardProps {
   event: CalendarEvent
@@ -9,10 +11,10 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, onSelect, showDate = false }: EventCardProps) {
-  return <button className="schedule-item" onClick={() => onSelect(event)}>
-    <span className={`schedule-line ${categoryColors[event.category]}`} />
-    <span className="schedule-content">
-      <span className={`category-label ${categoryColors[event.category]}`}>{event.category}</span>
+  return <button className={styles['schedule-item']} onClick={() => onSelect(event)}>
+    <span className={`${styles['schedule-line']} ${styles[categoryColors[event.category]]}`} />
+    <span className={styles['schedule-content']}>
+      <span className={`${styles['category-label']} ${styles[categoryColors[event.category]]}`}>{event.category}</span>
       <strong>{event.title}</strong>
       {showDate && <span><Icon name="calendar" size={14} /> {dateFromKey(event.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>}
       <span><Icon name="clock" size={14} /> {formatTime(event.time)}</span>
