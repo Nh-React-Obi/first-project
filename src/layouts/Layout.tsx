@@ -1,7 +1,7 @@
 import { Icon } from "../components/Icon";
 import { NavLink, Outlet } from "react-router";
 import { useState } from "react";
-import styles from "./Event.module.css";
+import styles from "../components/Event.module.css";
 import { EventDetails, EventModal } from "../components/EventModal";
 import { usePages } from "../components/pagesHook";
 
