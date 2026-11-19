@@ -10,13 +10,17 @@ export function Layout() {
   const pageState = usePages();
 
   const navItems = [
+    { name: "home", label: "Home", path: "/" },
     {
       name: "calendar",
       label: "Calendar",
-      icon: "calendar",
+      // icon: "calendar",
       path: "/calendar",
     },
     { name: "events", label: "Events", icon: "events", path: "/events" },
+
+    { name: "build", label: "build", path: "/build" },
+    { name: "order", label: "order", path: "/order" },
   ];
   return (
     <div className={styles["app-shell"]}>
@@ -43,7 +47,7 @@ export function Layout() {
               }
               onClick={() => setActivePage(item.name)}
             >
-              <Icon name={item.icon} /> {item.label}
+              {item.icon && <Icon name={item.icon} />} {item.label}
             </NavLink>
           ))}
         </nav>
@@ -63,12 +67,6 @@ export function Layout() {
         </div>
       </aside>
       <main className={styles["main-content"]}>
-        <header className={styles.topbar}>
-          <div className={styles.breadcrumb}>
-            Workspace <span>/</span>{" "}
-            <strong>{activePage === "calendar" ? "Calendar" : "Events"}</strong>
-          </div>
-        </header>
         <div className={styles["page-content"]}>
           <Outlet context={pageState} />
           <footer className={styles["page-footer"]}>
