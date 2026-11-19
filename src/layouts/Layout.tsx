@@ -1,59 +1,123 @@
-import { Link, Outlet } from "react-router";
+import { Icon } from "../components/Icon";
+import { NavLink, Outlet } from "react-router";
+import { useState } from "react";
+import styles from "../components/Event.module.css";
+import { EventDetails, EventModal } from "../components/EventModal";
+import { usePages } from "../components/pagesHook";
 
 export function Layout() {
+  const [activePage, setActivePage] = useState<string>("calendar");
+  const pageState = usePages();
+
+  const navItems = [
+    {
+      name: "calendar",
+      label: "Calendar",
+      icon: "calendar",
+      path: "/calendar",
+    },
+    { name: "events", label: "Events", icon: "events", path: "/events" },
+  ];
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <nav className="max-w-7xl mx-auto px-8 py-5 flex justify-between items-center">
-          {/* Logo */}
-          <h1 className="text-2xl font-extrabold text-purple-800">
-            Aqua<span className="text-gray-900">Pure.</span>
-          </h1>
-
-          {/* Navigation */}
-          <div className="flex items-center gap-8 text-sm font-semibold">
-            <Link
-              to="/"
-              className="text-purple-700 hover:text-purple-900 transition"
-            >
-              Homepage
-            </Link>
-
-            <Link
-              to="/build-your-own"
-              className="text-gray-600 hover:text-purple-700 transition"
-            >
-              Build Your Own
-            </Link>
+    <div className={styles["app-shell"]}>
+      <aside className={styles.sidebar}>
+        <div className={styles.brand}>
+          <div className={styles["brand-mark"]}>w</div>
+          <div>
+            <strong>
+              wellspring<span>.</span>
+            </strong>
+            <small>BOTTLING CO.</small>
           </div>
-
-          <Link
-            to="/login"
-            className="bg-purple-700 text-white px-6 py-3 rounded-lg hover:bg-purple-800 transition shadow-md"
-          >
-            Get Started
-          </Link>
-        </nav>
-      </header>
-
-      <main className="flex-1 max-w-7xl w-full mx-auto px-8 py-10">
-        <Outlet />
-      </main>
-
-      <footer className="bg-purple-950 text-white py-8 px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <h2 className="text-xl font-bold">AquaPure.</h2>
-
-          <p className="text-purple-200 text-sm">
-            Create your own bottle. Make it yours.
-          </p>
-
-          <p className="text-purple-300 text-sm">
-            © 2026 AquaPure. All rights reserved.
-          </p>
         </div>
-      </footer>
+        <div className={styles["workspace-label"]}>WORKSPACE</div>
+        <nav className={styles["side-nav"]} aria-label="Workspace">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.path}
+              className={({ isActive }) =>
+                isActive
+                  ? `${styles.active} ${styles["side-nav-button"]}`
+                  : `${styles["side-nav-button"]}`
+              }
+              onClick={() => setActivePage(item.name)}
+            >
+              <Icon name={item.icon} /> {item.label}
+            </NavLink>
+          ))}
+        </nav>
+        <div className={styles["side-note"]}>
+          <Icon name="sparkle" />
+          <div>
+            <strong>Better days, bottled.</strong>
+            <p>A little planning goes a long way.</p>
+          </div>
+        </div>
+        <div className={styles["sidebar-bottom"]}>
+          <div className={styles.avatar}>JD</div>
+          <div>
+            <strong>Jordan Davis</strong>
+            <small>Operations manager</small>
+          </div>
+        </div>
+      </aside>
+      <main className={styles["main-content"]}>
+        <header className={styles.topbar}>
+          <div className={styles.breadcrumb}>
+            Workspace <span>/</span>{" "}
+            <strong>{activePage === "calendar" ? "Calendar" : "Events"}</strong>
+          </div>
+        </header>
+        <div className={styles["page-content"]}>
+          <Outlet context={pageState} />
+          <footer className={styles["page-footer"]}>
+            <span>MADE FOR THE WAY YOU WORK</span>
+            <span>Wellspring Bottling Co. &nbsp; ✳</span>
+          </footer>
+        </div>
+      </main>
+      {pageState.showModal && (
+        <EventModal
+          initialDate={pageState.selectedDate}
+          onClose={() => pageState.setShowModal(false)}
+          onSave={pageState.saveEvent}
+        />
+      )}
+      {pageState.selectedEvent && (
+        <EventDetails
+          event={pageState.selectedEvent}
+          onClose={() => pageState.setSelectedEvent(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+export function PageHeading({
+  title,
+  description,
+  onCreate,
+}: {
+  title: string;
+  description: string;
+  onCreate: () => void;
+}) {
+  return (
+    <div className={styles["page-heading"]}>
+      <div>
+        <div className={styles.eyebrow}>
+          <span className={styles["eyebrow-dot"]} /> YOUR WORKSPACE
+        </div>
+        <h1>
+          {title}
+          <span>.</span>
+        </h1>
+        <p>{description}</p>
+      </div>
+      <button className={styles["primary-button"]} onClick={onCreate}>
+        <Icon name="plus" /> Create event
+      </button>
     </div>
   );
 }
