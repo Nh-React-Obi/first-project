@@ -1,37 +1,39 @@
+import { bottles } from "../data/bottles";
+
 import { useNavigate } from "react-router";
 
 export function Homepage() {
   const navigate = useNavigate();
 
-  const bottles = [
-    {
-      id: 1,
-      name: "Aqua Classic",
-      price: 500,
-      size: "50cl",
-      description: "Pure and refreshing everyday hydration.",
-      image:
-        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500",
-    },
-    {
-      id: 2,
-      name: "Premium Water",
-      price: 800,
-      size: "75cl",
-      description: "Premium quality water for your lifestyle.",
-      image:
-        "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=500",
-    },
-    {
-      id: 3,
-      name: "Sports Water",
-      price: 1200,
-      size: "1L",
-      description: "Stay refreshed during every workout.",
-      image:
-        "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=500",
-    },
-  ];
+  //   const bottles = [
+  //     {
+  //       id: 1,
+  //       name: "Aqua Classic",
+  //       price: 500,
+  //       size: "50cl",
+  //       description: "Pure and refreshing everyday hydration.",
+  //       image:
+  //         "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500",
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Premium Water",
+  //       price: 800,
+  //       size: "75cl",
+  //       description: "Premium quality water for your lifestyle.",
+  //       image:
+  //         "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=500",
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Sports Water",
+  //       price: 1200,
+  //       size: "1L",
+  //       description: "Stay refreshed during every workout.",
+  //       image:
+  //         "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=500",
+  //     },
+  //   ];
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -52,7 +54,7 @@ export function Homepage() {
           </p>
 
           <button
-            onClick={() => navigate("/build-your-own")}
+            onClick={() => navigate("/build")}
             className="mt-8 bg-white text-purple-800 font-bold px-8 py-3 rounded-xl hover:bg-purple-100 transition"
           >
             Build Your Own Bottle
@@ -116,7 +118,7 @@ export function Homepage() {
                   </p>
 
                   <button
-                    onClick={() => navigate(`/bottle/${bottle.id}`)}
+                    onClick={() => navigate(`/catalog/${bottle.id}`)}
                     className="bg-purple-700 text-white px-5 py-3 rounded-lg hover:bg-purple-800 transition"
                   >
                     View Details →
@@ -137,7 +139,7 @@ export function Homepage() {
         </p>
 
         <button
-          onClick={() => navigate("/build-your-own")}
+          onClick={() => navigate("/build")}
           className="mt-6 bg-purple-800 text-white px-8 py-3 rounded-xl hover:bg-purple-900 transition"
         >
           Start Customizing

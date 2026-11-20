@@ -1,20 +1,31 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { bottles } from "../data/bottles";
 
 export function BottleDetails() {
-  const [cap, setCap] = useState("Blue");
-  const [body, setBody] = useState("Round");
-  const [logo, setLogo] = useState("Aqua");
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [quantity, setQuantity] = useState(1);
 
-  const bottle = {
-    name: "Aqua Classic",
-    price: 500,
-    size: "50cl",
-    material: "PET Plastic",
-    type: "Purified Water",
-    sku: "AQ-001",
-    description: "A refreshing bottled water designed for everyday hydration.",
-  };
+  // Find the bottle selected from the Homepage
+  const bottle = bottles.find((item) => item.id === Number(id));
+
+  // Check if the bottle exists
+  if (!bottle) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold">Bottle Not Found</h1>
+
+        <button
+          onClick={() => navigate("/")}
+          className="mt-4 bg-blue-800 text-white px-6 py-3 rounded-lg"
+        >
+          Back to Catalogue
+        </button>
+      </div>
+    );
+  }
 
   const totalPrice = bottle.price * quantity;
 
@@ -24,38 +35,24 @@ export function BottleDetails() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      {/* Breadcrumb */}
       <p className="text-sm text-gray-500 mb-6">
-        Home / Catalogue / Bottle Details
+        Home / Catalogue / {bottle.name}
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        {/* Product Image */}
+        {/* Bottle Image */}
         <div className="bg-white rounded-xl p-8 flex items-center justify-center">
-          <div className="flex flex-col items-center">
-            <div
-              className="w-12 h-5 rounded-t-lg"
-              style={{
-                backgroundColor: cap.toLowerCase(),
-              }}
-            />
-
-            <div className="w-36 h-80 rounded-3xl border-2 border-blue-200 bg-blue-50 flex items-center justify-center shadow-md">
-              <div className="text-center">
-                <h2 className="font-bold text-blue-800 text-xl">{logo}</h2>
-
-                <p className="text-xs text-gray-500 mt-2">PURE WATER</p>
-
-                <p className="text-xs mt-2">{bottle.size}</p>
-              </div>
-            </div>
-          </div>
+          <img
+            src={bottle.image}
+            alt={bottle.name}
+            className="w-full h-96 object-contain"
+          />
         </div>
 
-        {/* Product Information */}
+        {/* Bottle Information */}
         <div className="space-y-5">
           <div>
-            <p className="text-blue-700 text-sm">Natural Purified Water</p>
+            <p className="text-blue-700 text-sm">Bottle Collection</p>
 
             <h1 className="text-3xl font-bold mt-2">{bottle.name}</h1>
 
@@ -84,57 +81,6 @@ export function BottleDetails() {
 
           <hr />
 
-          {/* Cap Selection */}
-          <div>
-            <label className="font-bold block mb-2">Select Cap Colour</label>
-
-            <select
-              value={cap}
-              onChange={(e) => setCap(e.target.value)}
-              className="w-full border rounded-lg p-3"
-            >
-              <option>Blue</option>
-              <option>Red</option>
-              <option>Green</option>
-              <option>Black</option>
-              <option>White</option>
-              <option>Yellow</option>
-            </select>
-          </div>
-
-          {/* Body Selection */}
-          <div>
-            <label className="font-bold block mb-2">Select Bottle Body</label>
-
-            <select
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              className="w-full border rounded-lg p-3"
-            >
-              <option>Round</option>
-              <option>Slim</option>
-              <option>Square</option>
-              <option>Curved</option>
-              <option>Sports</option>
-            </select>
-          </div>
-
-          {/* Logo Selection */}
-          <div>
-            <label className="font-bold block mb-2">Select Logo</label>
-
-            <select
-              value={logo}
-              onChange={(e) => setLogo(e.target.value)}
-              className="w-full border rounded-lg p-3"
-            >
-              <option>Aqua</option>
-              <option>Nature</option>
-              <option>Premium</option>
-              <option>Company</option>
-            </select>
-          </div>
-
           {/* Quantity */}
           <div>
             <label className="font-bold block mb-2">Quantity</label>
@@ -158,7 +104,7 @@ export function BottleDetails() {
             </div>
           </div>
 
-          {/* Total */}
+          {/* Total Price */}
           <div className="bg-blue-50 p-4 rounded-lg">
             <p className="text-gray-600">Total Price</p>
 
@@ -167,7 +113,6 @@ export function BottleDetails() {
             </h2>
           </div>
 
-          {/* Buttons */}
           <button
             onClick={handleAddToCart}
             className="w-full bg-blue-800 text-white p-3 rounded-lg"
@@ -176,7 +121,7 @@ export function BottleDetails() {
           </button>
 
           <button
-            onClick={() => alert("Opening bottle builder...")}
+            onClick={() => navigate("/build")}
             className="w-full border border-blue-800 text-blue-800 p-3 rounded-lg"
           >
             Build Your Own Bottle
