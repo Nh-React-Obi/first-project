@@ -19,7 +19,7 @@ export function Layout() {
     },
     { name: "events", label: "Events", icon: "events", path: "/events" },
 
-    { name: "buildYourOwn", label: "Build Your Own", path: "/buildYourOwn" },
+    { name: "build", label: "Build Your Own", path: "/build" },
     { name: "order", label: "Order", path: "/order" },
   ];
   return (
