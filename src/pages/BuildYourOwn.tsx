@@ -128,10 +128,11 @@ function BuildYourOwn() {
                   <button
                     key={colour}
                     onClick={() => setCap(colour)}
-                    className={`w-10 h-10 rounded-full border-2 ${cap === colour
+                    className={`w-10 h-10 rounded-full border-2 ${
+                      cap === colour
                         ? "border-blue-600 ring-2 ring-blue-200"
                         : "border-gray-300"
-                      }`}
+                    }`}
                     style={{ backgroundColor: colour }}
                     title={colour}
                   />

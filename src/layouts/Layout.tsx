@@ -19,8 +19,8 @@ export function Layout() {
     },
     { name: "events", label: "Events", icon: "events", path: "/events" },
 
-    { name: "build", label: "build", path: "/build" },
-    { name: "order", label: "order", path: "/order" },
+    { name: "buildYourOwn", label: "Build Your Own", path: "/buildYourOwn" },
+    { name: "order", label: "Order", path: "/order" },
   ];
   return (
     <div className={styles["app-shell"]}>

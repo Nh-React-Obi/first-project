@@ -1,3 +1,5 @@
+import BottleDetails from "./pages/BottleDetail";
+
 function App() {
   return (
     <div>
