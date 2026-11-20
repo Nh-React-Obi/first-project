@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router";
+import { useSales } from "../context/SalesContext";
 
 export function Homepage() {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ export function Homepage() {
         "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=500",
     },
   ];
+
+  const {SalesValue} = useSales()
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -116,7 +119,11 @@ export function Homepage() {
                   </p>
 
                   <button
-                    onClick={() => navigate(`/bottle/${bottle.id}`)}
+                    onClick={
+                      () => SalesValue()
+                        // navigate(`/bottle/${bottle.id}`)
+
+                    }
                     className="bg-purple-700 text-white px-5 py-3 rounded-lg hover:bg-purple-800 transition"
                   >
                     View Details →

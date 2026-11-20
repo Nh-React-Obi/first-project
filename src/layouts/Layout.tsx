@@ -21,6 +21,7 @@ export function Layout() {
 
     { name: "build", label: "build", path: "/build" },
     { name: "order", label: "order", path: "/order" },
+    {name: 'sales', label: "sales", path:"/sales"}
   ];
   return (
     <div className={styles["app-shell"]}>

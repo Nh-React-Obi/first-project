@@ -7,6 +7,7 @@ import EventsPage from "./pages/EventsPage";
 import CalendarPage from "./pages/CalendarPage";
 import { Layout } from "./layouts/Layout";
 import FullOrderPage from "./exports/App";
+import SalesPage from "./pages/SalesPage";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
         path: "order",
         element: <FullOrderPage />,
       },
+      {
+        path: "sales",
+        element: <SalesPage/>
+      }
     ],
   },
 ]);
