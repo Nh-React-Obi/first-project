@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router";
+import { useTheme } from "../context/ThemeContext";
 
 export function Homepage() {
   const navigate = useNavigate();
+
+  const { toggle } = useTheme();
 
   const bottles = [
     {
@@ -10,8 +13,7 @@ export function Homepage() {
       price: 500,
       size: "50cl",
       description: "Pure and refreshing everyday hydration.",
-      image:
-        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500",
+      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500",
     },
     {
       id: 2,
@@ -19,8 +21,7 @@ export function Homepage() {
       price: 800,
       size: "75cl",
       description: "Premium quality water for your lifestyle.",
-      image:
-        "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=500",
+      image: "https://images.unsplash.com/photo-1523362628745-0c100150b504?w=500",
     },
     {
       id: 3,
@@ -28,8 +29,7 @@ export function Homepage() {
       price: 1200,
       size: "1L",
       description: "Stay refreshed during every workout.",
-      image:
-        "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=500",
+      image: "https://images.unsplash.com/photo-1564419320461-6870880221ad?w=500",
     },
   ];
 
@@ -47,8 +47,8 @@ export function Homepage() {
           </h1>
 
           <p className="mt-6 text-purple-100 text-lg">
-            Discover your perfect bottle of water or create a unique bottle that
-            matches your personal style.
+            Discover your perfect bottle of water or create a unique bottle that matches
+            your personal style.
           </p>
 
           <button
@@ -63,22 +63,16 @@ export function Homepage() {
       <section className="py-16">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div>
-            <p className="text-purple-700 font-semibold text-sm">
-              OUR COLLECTION
-            </p>
+            <p className="text-purple-700 font-semibold text-sm">OUR COLLECTION</p>
 
-            <h2 className="text-3xl font-bold text-gray-900 mt-2">
-              Explore Our Bottles
-            </h2>
+            <h2 className="text-3xl font-bold text-gray-900 mt-2">Explore Our Bottles</h2>
 
             <p className="text-gray-500 mt-2">
               Find the perfect bottle for every occasion.
             </p>
           </div>
 
-          <p className="text-gray-500 text-sm">
-            {bottles.length} Products Available
-          </p>
+          <p className="text-gray-500 text-sm">{bottles.length} Products Available</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -97,18 +91,14 @@ export function Homepage() {
 
               <div className="p-6">
                 <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {bottle.name}
-                  </h3>
+                  <h3 className="text-xl font-bold text-gray-900">{bottle.name}</h3>
 
                   <span className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full">
                     {bottle.size}
                   </span>
                 </div>
 
-                <p className="text-gray-500 text-sm mt-3">
-                  {bottle.description}
-                </p>
+                <p className="text-gray-500 text-sm mt-3">{bottle.description}</p>
 
                 <div className="flex justify-between items-center mt-6">
                   <p className="text-2xl font-bold text-purple-800">

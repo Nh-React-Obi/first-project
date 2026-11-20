@@ -3,6 +3,7 @@ import {
   useMemo,
   useState,
   useContext,
+  useEffect,
   type ReactNode,
 } from "react";
 
@@ -18,6 +19,11 @@ interface ThemeProviderProp {
 
 export function ThemeProvider({ children }: ThemeProviderProp) {
   const [theme, setTheme] = useState<Theme>("light");
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
   const value = useMemo<ThemeCtx>(
     () => ({
       theme,
@@ -25,9 +31,7 @@ export function ThemeProvider({ children }: ThemeProviderProp) {
     }),
     [theme],
   );
-  return (
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {
@@ -52,9 +56,7 @@ export function Theme2Provider({ children }: ThemeProviderProp) {
   };
 
   const toggle = () => {
-    return setTheme((t) =>
-      t === "dark" ? "light" : t === "system" ? "light" : "dark",
-    );
+    return setTheme((t) => (t === "dark" ? "light" : t === "system" ? "light" : "dark"));
   };
 
   const value = {
@@ -63,9 +65,7 @@ export function Theme2Provider({ children }: ThemeProviderProp) {
     toggle,
   };
 
-  return (
-    <Theme2Context.Provider value={value}>{children}</Theme2Context.Provider>
-  );
+  return <Theme2Context.Provider value={value}>{children}</Theme2Context.Provider>;
 }
 
 export function use2Theme() {
