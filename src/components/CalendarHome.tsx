@@ -2,8 +2,8 @@ import { CategoryFilter } from "./CategoryFilter";
 import { EventCard } from "./EventCard";
 import { Icon } from "./Icon";
 import { PageHeading } from "../layouts/Layout";
-import { categoryColors, dateFromKey, dateKey } from "../events";
-import type { CalendarEvent, Category } from "../events";
+import { categoryColors, dateFromKey, dateKey } from "../data/events";
+import type { CalendarEvent, Category } from "../data/events";
 import styles from "./Event.module.css";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

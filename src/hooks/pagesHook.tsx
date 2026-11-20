@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import useLocalStorage from "./LocalStorage";
-import { categories, dateFromKey, dateKey } from "../events";
-import type { CalendarEvent, Category, Page } from "../events";
+import { categories, dateFromKey, dateKey } from "../data/events";
+import type { CalendarEvent, Category, Page } from "../data/events";
 
 export const usePages = () => {
   const [today] = useState(() => new Date());

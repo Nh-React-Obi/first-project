@@ -1,26 +1,28 @@
-import { useState } from 'react'
-import type { CalendarEvent } from '../events'
+import { useState } from "react";
+import type { CalendarEvent } from "../data/events";
 
 function getStoredItem<T>(key: string): T | null {
-  const item = localStorage.getItem(key)
-  return item === null ? null : JSON.parse(item) as T
+  const item = localStorage.getItem(key);
+  return item === null ? null : (JSON.parse(item) as T);
 }
 
 const UseLocalStorage = () => {
   const [events, setEvents] = useState<CalendarEvent[]>(
-    () => getStoredItem<CalendarEvent[]>('events') ?? [],
-  )
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null)
+    () => getStoredItem<CalendarEvent[]>("events") ?? [],
+  );
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(
+    null,
+  );
 
   const setItem = (key: string, value: CalendarEvent[]) => {
-    localStorage.setItem(key, JSON.stringify(value))
-    if (key === 'events') setEvents(value)
-  }
+    localStorage.setItem(key, JSON.stringify(value));
+    if (key === "events") setEvents(value);
+  };
 
   const removeItem = (key: string) => {
-    localStorage.removeItem(key)
-    if (key === 'events') setEvents([])
-  }
+    localStorage.removeItem(key);
+    if (key === "events") setEvents([]);
+  };
 
   return {
     events,
@@ -29,8 +31,8 @@ const UseLocalStorage = () => {
     setSelectedEvent,
     getItem: getStoredItem,
     setItem,
-    removeItem
-  }
-}
+    removeItem,
+  };
+};
 
-export default UseLocalStorage
+export default UseLocalStorage;

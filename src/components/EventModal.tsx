@@ -1,7 +1,12 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { categories, categoryColors, dateFromKey, formatTime } from "../events";
-import type { CalendarEvent, Category } from "../events";
+import {
+  categories,
+  categoryColors,
+  dateFromKey,
+  formatTime,
+} from "../data/events";
+import type { CalendarEvent, Category } from "../data/events";
 import { Icon } from "./Icon";
 import styles from "./Event.module.css";
 
@@ -68,11 +73,11 @@ export function EventModal({
               value={title}
               onChange={(event) => setTitle(event.target.value)}
               placeholder="e.g. Production planning"
-              style={{width: "95%"}}
+              style={{ width: "95%" }}
             />
           </label>
           <div className={styles["form-row"]}>
-            <label style={{width: '87%'}}>
+            <label style={{ width: "87%" }}>
               Date
               <input
                 required
@@ -81,7 +86,7 @@ export function EventModal({
                 onChange={(event) => setDate(event.target.value)}
               />
             </label>
-            <label style={{width: '87%'}}>
+            <label style={{ width: "87%" }}>
               Time
               <input
                 required
@@ -102,7 +107,7 @@ export function EventModal({
               ))}
             </select>
           </label>
-          <label style={{width: '95%'}}>
+          <label style={{ width: "95%" }}>
             Location
             <input
               required

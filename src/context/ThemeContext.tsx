@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "system";
 
 type ThemeCtx = { theme: Theme; toggle: () => void };
 
@@ -32,6 +32,44 @@ export function ThemeProvider({ children }: ThemeProviderProp) {
 
 export function useTheme() {
   const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be used inside <ThemeProvider>");
+  return ctx;
+}
+
+type Theme2Ctx = {
+  theme: Theme;
+  removeTotalCars: () => void;
+  toggle: () => void;
+};
+
+const Theme2Context = createContext<Theme2Ctx | null>(null);
+
+export function Theme2Provider({ children }: ThemeProviderProp) {
+  const [theme, setTheme] = useState<Theme>("light");
+
+  const removeTotalCars = () => {
+    return setTheme("system");
+  };
+
+  const toggle = () => {
+    return setTheme((t) =>
+      t === "dark" ? "light" : t === "system" ? "light" : "dark",
+    );
+  };
+
+  const value = {
+    theme,
+    removeTotalCars,
+    toggle,
+  };
+
+  return (
+    <Theme2Context.Provider value={value}>{children}</Theme2Context.Provider>
+  );
+}
+
+export function use2Theme() {
+  const ctx = useContext(Theme2Context);
   if (!ctx) throw new Error("useTheme must be used inside <ThemeProvider>");
   return ctx;
 }

@@ -1,7 +1,7 @@
 import { CategoryFilter } from "../components/CategoryFilter";
 import { EventCard } from "../components/EventCard";
 import { PageHeading } from "../layouts/Layout";
-import type { CalendarEvent, Category } from "../events";
+import type { CalendarEvent, Category } from "../data/events";
 import styles from "./Event.module.css";
 
 export function EventsHome({
